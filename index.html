@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Dall’olios Book</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(180deg, #0f2027, #203a43, #2c5364);
+    color: white;
+}
+
+header {
+    padding: 30px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+header p {
+    opacity: 0.85;
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    padding: 20px;
+}
+
+.produtos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.produto {
+    background: rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.produto h3 {
+    margin: 10px 0;
+}
+
+.preco {
+    font-size: 22px;
+    color: #00ff99;
+    font-weight: bold;
+}
+
+button {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    background: #00ff99;
+    color: #003333;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #00cc7a;
+}
+
+#pixModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+#pixBox {
+    background: white;
+    color: black;
+    padding: 25px;
+    border-radius: 12px;
+    width: 300px;
+    text-align: center;
+}
+
+#pixBox img {
+    width: 200px;
+    margin: 10px 0;
+}
+
+#pixBox .whats {
+    background: #25D366;
+    color: white;
+}
+
+#whatsappBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25D366;
+  color: white;
+  font-size: 28px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 0 15px rgba(0,0,0,0.6);
+  z-index: 3000;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>📘 Dall’olios Book</h1>
+    <p>E-books digitais • Pagamento via Pix • Entrega pelo WhatsApp</p>
+</header>
+
+<div class="container">
+<div class="produtos">
+
+<div class="produto">
+    <h3>E-book Mentalidade Vencedora</h3>
+    <p>Aprenda a desenvolver foco e disciplina.</p>
+    <p class="preco">R$ 19,90</p>
+    <button onclick="abrirPix('Mentalidade Vencedora')">Comprar com Pix</button>
+</div>
+
+<div class="produto">
+    <h3>E-book Renda Online</h3>
+    <p>Guia prático para ganhar dinheiro na internet.</p>
+    <p class="preco">R$ 29,90</p>
+    <button onclick="abrirPix('Renda Online')">Comprar com Pix</button>
+</div>
+
+</div>
+</div>
+
+<!-- MODAL PIX -->
+<div id="pixModal">
+    <div id="pixBox">
+        <h3>Pagamento via Pix</h3>
+        <p id="ebookNome"></p>
+
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=PIX85996865011">
+
+        <p><strong>Chave Pix:</strong><br>85996865011</p>
+
+        <button class="whats" onclick="jaPaguei()">Já paguei</button><br><br>
+        <button onclick="fecharPix()">Cancelar</button>
+    </div>
+</div>
+
+<!-- BOTÃO FLUTUANTE WHATSAPP -->
+<a href="https://wa.me/5585996865011"
+   target="_blank"
+   id="whatsappBtn">💬</a>
+
+<script>
+let ebookAtual = "";
+
+function abrirPix(nome) {
+    ebookAtual = nome;
+    document.getElementById("ebookNome").innerText =
+      "E-book: " + nome;
+    document.getElementById("pixModal").style.display = "flex";
+}
+
+function fecharPix() {
+    document.getElementById("pixModal").style.display = "none";
+}
+
+function jaPaguei() {
+    const msg = encodeURIComponent(
+      "Olá! Já fiz o pagamento do Pix do e-book: " + ebookAtual
+    );
+    window.open(
+      "https://wa.me/5585996865011?text=" + msg,
+      "_blank"
+    );
+}
+</script>
+
+</body>
+</html>
